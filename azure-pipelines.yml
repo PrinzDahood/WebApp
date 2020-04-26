@@ -33,7 +33,7 @@ steps:
 
       foreach ($url in $tempFiles) {
         try {
-            Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY"
+            Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\url"
         } catch {
             throw "Error in loop'"
         }
