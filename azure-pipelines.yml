@@ -32,13 +32,13 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy >> Deployment content <<'
   inputs:
-    SourceFolder: Deployment
+    SourceFolder: $(Build.ArtifactStagingDirectory)
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/Deployment'
     CleanTargetFolder: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\\Deployment'
     ArtifactName: 'drop'
     publishLocation: 'Container'
