@@ -37,7 +37,7 @@ steps:
 
 - task: AzureFileCopy@4
   inputs:
-    SourcePath: '$(System.ArtifactsDirectory)\\IoTEdge\\'
+    SourcePath: '$(System.ArtifactsDirectory)\\test-iotedge.zip'
     azureSubscription: 'AutomotiveEdge'
     Destination: 'AzureBlob'
     storage: 'automotiveedgestorage01'
