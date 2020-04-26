@@ -29,7 +29,8 @@ steps:
       $files = $json.assets | % browser_download_url
 
       $tempFiles = $files.split(" ")
-      write-host $tempFiles
+      write-host 'files:' $tempFiles.length
+
       foreach ($url in $tempFiles) {
         try {
             Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY"
