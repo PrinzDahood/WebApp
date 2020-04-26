@@ -34,7 +34,7 @@ steps:
   inputs:
     SourceFolder: $(Build.ArtifactStagingDirectory)
     Contents: '**\*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)//Deployment-$(Build.BuildId)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
 
 - task: PublishBuildArtifacts@1
