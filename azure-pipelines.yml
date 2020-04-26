@@ -24,7 +24,7 @@ steps:
     script: |
       $latestRelease = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest -Headers @{"Accept"="application/json"}
       $json = $latestRelease.Content | ConvertFrom-Json
-      $url = $json.assets | ? { $_.Name -Match "*.deb" }  | % browser_download_url
+      $url = $json.assets | % browser_download_url
       write-host 'url:' $url
       write-host 'latest version:' $json.tag_name
       Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\test.zip"
