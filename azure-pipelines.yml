@@ -35,33 +35,10 @@ steps:
 #    destinationFolder: '$(System.ArtifactsDirectory)\\Test-IoTEdge\\'
 #    cleanDestinationFolder: true
 
-#- task: AzureFileCopy@4
-#  inputs:
-#    SourcePath: '$(System.ArtifactsDirectory)\\test-iotedge.zip'
-#    azureSubscription: 'AutomotiveEdge'
-#    Destination: 'AzureBlob'
-#    storage: 'automotiveedgestorage01'
-#    ContainerName: 'test'
-
-- task: CopyFiles@2
-  displayName: 'Copy >> Deployment content <<'
+- task: AzureFileCopy@4
   inputs:
-    SourceFolder: Deployment
-    Contents: '**\*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/Deployment'
-    CleanTargetFolder: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-
-- task: AzureFileCopy@3
-  displayName: 'AzureBlob File Copy'
-  inputs:
-    SourcePath: '$(System.DefaultWorkingDirectory)/_Drop_Deployment/drop'
-    azureSubscription: AutomotiveEdge
-    Destination: AzureBlob
-    storage: automotiveedgestorage01
-    ContainerName: test
+    SourcePath: '$(System.ArtifactsDirectory)'
+    azureSubscription: 'AutomotiveEdge'
+    Destination: 'AzureBlob'
+    storage: 'automotiveedgestorage01'
+    ContainerName: 'test'
