@@ -25,7 +25,7 @@ steps:
       $latestRelease = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest
       $json = $latestRelease.Content | ConvertFrom-Json
       write-host 'latest version:' $json.tag_name
-      $url = $json.assets | https://github.com/Azure/azure-iotedge/releases/download/1.0.9/iotedge_1.0.9-1_debian9_arm64.deb
+      $url = $json.assets | ? { $_.Name -Match "iotedge" }  | % browser_download_url
       write-host 'url:' $url
       Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\test-iotedge.zip"
 
