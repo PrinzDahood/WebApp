@@ -22,7 +22,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $latestRelease = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest -Headers{"content_type"="application/octet-stream"}
+      $latestRelease = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest
       $json = $latestRelease.Content | ConvertFrom-Json
       write-host 'latest version:' $json.tag_name
       $url = $json.assets | browser_download_url
