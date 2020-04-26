@@ -9,16 +9,8 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
-# Starter pipeline
 - task: PowerShell@2
+  displayName: 'Download >> GitHub IoT-Packages'
   inputs:
     targetType: 'inline'
     script: |
@@ -26,23 +18,26 @@ steps:
       $json = $latestRelease.Content | ConvertFrom-Json
 
       write-host 'latest version:' $json.tag_name
+
       $files = $json.assets | % browser_download_url
 
-      $tempFiles = $files.split(" ")
-      write-host 'files:' $tempFiles.length
+      write-host 'Assets count:' $files.length
 
       $DestinationPath = $env:SYSTEM_ARTIFACTSDIRECTORY
 
       foreach ($file in $files) {
         $fileDestination = Join-Path $DestinationPath (Split-Path $file -Leaf)
+
         try {
             Invoke-WebRequest -Uri $file -OutFile $fileDestination -ErrorAction Stop -Verbose
+            "Grabbed '$($file)' to '$fileDestination'"
         } catch {
-            throw "Error in loop'"
+            throw "Unable to download '$($file)'"
         }
       }
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish >> IoT-Packages'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
