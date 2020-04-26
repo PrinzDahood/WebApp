@@ -34,11 +34,11 @@ steps:
   inputs:
     SourceFolder: $(Build.ArtifactStagingDirectory)
     Contents: '**\*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/Deployment'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)//Deployment-$(Build.BuildId)'
     CleanTargetFolder: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)\\Deployment'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
