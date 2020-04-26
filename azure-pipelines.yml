@@ -29,12 +29,12 @@ steps:
       $files = $json.assets | % browser_download_url
 
       $tempFiles = $files.split(" ")
-
+      write-host $tempFiles
       foreach ($url in $tempFiles) {
         try {
             Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY"
         } catch {
-            throw "Unable to download '$($file.path)'"
+            throw "Error in loop'"
         }
       }
 
