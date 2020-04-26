@@ -25,8 +25,7 @@ steps:
       $latestRelease = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest -Headers @{"Accept"="application/json"}
       $json = $latestRelease.Content | ConvertFrom-Json
       write-host 'latest version:' $json.tag_name
-      write-host 'url:' $url
-      Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\iotedge.zip"
+      Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\test.zip"
 
 - task: PublishBuildArtifacts@1
   inputs:
