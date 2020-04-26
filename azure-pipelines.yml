@@ -25,14 +25,12 @@ steps:
       $latestRelease = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest -Headers @{"Accept"="application/json"}
       $json = $latestRelease.Content | ConvertFrom-Json
 
-      $destinationPath = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest
-      $files = $objects | where {$_.type -eq "file"} | Select -exp browser_download_url
+      write-host 'latest version:' $json.tag_name
+      $urls = $json.assets | % browser_download_url
 
-      foreach ($file in $files) {
-        $fileDestination = Join-Path $DestinationPath (Split-Path $file -Leaf)
-
+      foreach ($url in $urls) {
         try {
-            Invoke-WebRequest -Uri $file -OutFile $fileDestination -ErrorAction Stop -Verbose
+            Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\url"
         } catch {
             throw "Unable to download '$($file.path)'"
         }
