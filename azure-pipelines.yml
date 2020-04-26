@@ -22,10 +22,10 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $latestRelease = Invoke-WebRequest https://api.github.com/repos/Azure/azure-iotedge/releases/latest -Headers @{"Accept"="application/json"}
+      $latestRelease = Invoke-WebRequest https://github.com/repos/Azure/azure-iotedge/releases/latest -Headers @{"Accept"="application/json"}
       $json = $latestRelease.Content | ConvertFrom-Json
       $latestVersion = $json.tag_name
-      $url = "https://api.github.com/repos/Azure/azure-iotedge/releases/download/$latestVersion/myArtifact.zip"
+      $url = "https://github.com/repos/Azure/azure-iotedge/releases/download/$latestVersion/myArtifact.zip"
 
 - task: PublishBuildArtifacts@1
   inputs:
