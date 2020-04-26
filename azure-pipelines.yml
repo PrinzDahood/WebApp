@@ -29,15 +29,17 @@ steps:
       write-host 'url:' $url
       Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\iotedge_1.0.9-1_debian9_amd64.deb"
 
-- task: ExtractFiles@1
+- task: ArchiveFiles@2
   inputs:
-    archiveFilePatterns: '$(System.ArtifactsDirectory)\\test-iotedge.zip'
-    destinationFolder: '$(System.ArtifactsDirectory)\\Test-IoTEdge\\'
-    cleanDestinationFolder: true
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 - task: AzureFileCopy@4
   inputs:
-    SourcePath: '$(System.ArtifactsDirectory)\\Test-IoTEdge'
+    SourcePath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     azureSubscription: 'AutomotiveEdge'
     Destination: 'AzureBlob'
     storage: 'automotiveedgestorage01'
