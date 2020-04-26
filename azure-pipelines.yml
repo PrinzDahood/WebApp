@@ -31,9 +31,12 @@ steps:
       $tempFiles = $files.split(" ")
       write-host 'files:' $tempFiles.length
 
-      foreach ($url in $tempFiles) {
+      $DestinationPath = $env:SYSTEM_ARTIFACTSDIRECTORY
+
+      foreach ($file in $files) {
+        $fileDestination = Join-Path $DestinationPath (Split-Path $file -Leaf)
         try {
-            Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\url"
+            Invoke-WebRequest -Uri $file -OutFile $fileDestination -ErrorAction Stop -Verbose
         } catch {
             throw "Error in loop'"
         }
