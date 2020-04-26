@@ -29,11 +29,11 @@ steps:
       write-host 'url:' $url
       Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\test-iotedge.zip"
 
-- task: ExtractFiles@1
-  inputs:
-    archiveFilePatterns: '$(System.ArtifactsDirectory)\\test-iotedge.zip'
-    destinationFolder: '$(System.ArtifactsDirectory)\\Test-IoTEdge\\'
-    cleanDestinationFolder: true
+#- task: ExtractFiles@1
+#  inputs:
+#    archiveFilePatterns: '$(System.ArtifactsDirectory)\\test-iotedge.zip'
+#    destinationFolder: '$(System.ArtifactsDirectory)\\Test-IoTEdge\\'
+#    cleanDestinationFolder: true
 
 - task: AzureFileCopy@4
   inputs:
