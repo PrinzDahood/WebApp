@@ -44,10 +44,12 @@ steps:
 #    ContainerName: 'test'
 
 - task: CopyFiles@2
+  displayName: 'Copy >> Deployment content <<'
   inputs:
-    SourceFolder: 'Deployment'
+    SourceFolder: Deployment
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/Deployment'
+    CleanTargetFolder: true
 
 - task: PublishBuildArtifacts@1
   inputs:
