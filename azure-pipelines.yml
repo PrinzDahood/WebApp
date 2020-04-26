@@ -29,14 +29,6 @@ steps:
       write-host 'url:' $url
       Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\iotedge_1.0.9-1_debian9_amd64.deb"
 
-- task: CopyFiles@2
-  displayName: 'Copy >> Deployment content <<'
-  inputs:
-    SourceFolder: $(Build.ArtifactStagingDirectory)
-    Contents: '**\*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/Deployment'
-    CleanTargetFolder: true
-
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
