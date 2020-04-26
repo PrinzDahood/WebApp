@@ -49,12 +49,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-
-- task: AzureFileCopy@3
-  displayName: 'AzureBlob File Copy'
-  inputs:
-    SourcePath: '$(System.DefaultWorkingDirectory)/_Drop_Deployment/drop'
-    azureSubscription: AutomotiveEdge
-    Destination: AzureBlob
-    storage: automotiveedgestorage01
-    ContainerName: iot
