@@ -26,11 +26,13 @@ steps:
       $json = $latestRelease.Content | ConvertFrom-Json
 
       write-host 'latest version:' $json.tag_name
-      $urls = $json.assets | % browser_download_url
+      $files = $json.assets | % browser_download_url
 
-      foreach ($url in $urls) {
+      $tempFiles = $files.split(" ")
+
+      foreach ($url in $tempFiles) {
         try {
-            Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY\url"
+            Invoke-WebRequest -Uri $url -OutFile "$env:SYSTEM_ARTIFACTSDIRECTORY"
         } catch {
             throw "Unable to download '$($file.path)'"
         }
